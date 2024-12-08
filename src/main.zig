@@ -2,19 +2,34 @@
 //! you are building an executable. If you are making a library, the convention
 //! is to delete this file and start with root.zig instead.
 const std = @import("std");
-struct Node {
-    data: i32,
-    next: ?*Node,   // pointer to the next node in the list
-}
 
-struct LinkedList {
+const Node = struct {
+    val: i32,
+    next: ?*Node,
+};
+
+const ListNode = struct{
+    val : i32,
+    next : ?*ListNode,
+    pub fn init(val : i32, next : ?*ListNode) ListNode {
+        return ListNode{ 
+            .val = val,
+            .next = next
+        };
+    }
+};
+ 
+
+const LinkedList = struct {
     head: ?*Node,   // pointer to the first node in the list
     tail: ?*Node,   // pointer to the last node in the list
-}
+
+};
 
 pub fn main() !void {
     // Prints to stderr (it's a shortcut based on `std.io.getStdErr()`)
     std.debug.print("All your {s} are belong to us.\n", .{"codebase"});
+
 
     // stdout is for the actual output of your application, for example if you
     // are implementing gzip, then only the compressed bytes should be sent to
@@ -36,7 +51,16 @@ test "simple test" {
     try list.append(42);
     try std.testing.expectEqual(@as(i32, 42), list.pop());
 }
-
+// test "leetCode 2 add two numbers" {
+//     // var l1 = std.ArrayList(i32).init(std.testing.allocator);
+//     // var l2 = std.ArrayList(i32).init(std.testing.allocator);
+//     // l1.append(2);
+//     // l1.append(4);
+//     // l2.append(5);
+//     // l2.append(6);
+//     // var sum = addTwoNumbers(l1, l2);
+//     // try std.testing.expectEqual(@as(i32, 8), sum);
+// }
 // test "fuzz example" {
 //     const global = struct {
 //         fn testOne(input: []const u8) anyerror!void {
