@@ -14,14 +14,16 @@ pub fn main() !void {
     var bw = std.io.bufferedWriter(stdout_file);
     const stdout = bw.writer();
 
-    try stdout.print("Run `zig build test` to run the tests.\n", .{});
+    try stdout.print("Run `zig build test` to run the tests. I changed the output of this code!\n", .{});
 
     try bw.flush(); // Don't forget to flush!
+    //What is flushing????????
 }
 
 test "simple test" {
     var list = std.ArrayList(i32).init(std.testing.allocator);
     defer list.deinit(); // Try commenting this out and see if zig detects the memory leak!
+
     try list.append(42);
     try std.testing.expectEqual(@as(i32, 42), list.pop());
 }
